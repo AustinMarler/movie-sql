@@ -1,0 +1,56 @@
+SELECT * FROM movies;
+
+SELECT id, title FROM movies LIMIT 10;
+
+SELECT * FROM movies WHERE id=485;
+
+SELECT id FROM movies WHERE title LIKE "%Made in America%";
+
+SELECT * FROM movies ORDER BY title LIMIT 10;
+SELECT * FROM movies WHERE id < 11 ORDER BY title;
+
+SELECT * FROM movies WHERE title LIKE "%(2002)";
+
+SELECT title FROM movies WHERE title LIKE "Godfather, The%";
+    
+SELECT * FROM movies WHERE genres LIKE "%Comedy%";
+
+SELECT * FROM movies WHERE title LIKE "%(2000)" AND genres LIKE "%Comedy%";
+
+SELECT * FROM movies WHERE title LIKE "%Death%" AND genres LIKE "%Comedy%";
+
+SELECT * FROM movies WHERE title LIKE "%super%" AND (title LIKE "%(2001)" OR title LIKE "%(2002)");
+    
+INSERT INTO actors (movie_id, name, dob, character_name) VALUES (10, "Pierce Brosnan", "May 16, 1953", "James Bond"), (10, "Sean Bean", "April 17, 1959", "Alec Trevelyan"), (10, "Izabella Scorupco", "June 4, 1970", "Natalya Simonova"), (10, "Famke Janssen", "November 5, 1964", "Xenia Onatopp"), (10, "Joe Don Baker", "February 12, 1936", "Jack Wade"), (10, "Judi Dench", "December 9, 1934", "M"), (10, "Robbie Coltrane", "March 30, 1950", "Valentin Zukovsky"), (10, "Tchéky Karyo", "October 4, 1953", "Dimitri Mishkin (as Tcheky Karyo)"), (10, "Gottfried John", "August 29, 1942", "Colonel Ourumov"), (10, "Alan Cumming", "January 27, 1965", "Boris Grishenko"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"),(104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (104, "Adam Sandler", "September 9, 1966", "Happy Gilmore"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd"), (231, "Jim Carrey", "January 17, 1962", "Lloyd");
+
+UPDATE movies SET mpaa_rating = "G" WHERE id=1;
+UPDATE movies SET mpaa_rating = "PG" WHERE id=2;
+UPDATE movies SET mpaa_rating = "PG-13" WHERE id=3;
+UPDATE movies SET mpaa_rating = "R" WHERE id=4;
+UPDATE movies SET mpaa_rating = "PG" WHERE id=5;
+
+SELECT m.title, r.rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id WHERE id=858;
+
+SELECT m.title, r.rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id WHERE id=858 ORDER BY r.timestamp DESC;
+
+SELECT m.title, l.imdb_id FROM movies m LEFT JOIN links l ON m.id = l.movie_id WHERE m.genres LIKE "%Comedy%" AND m.title LIKE "%(2005)";
+
+SELECT m.* FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id WHERE r.movie_id IS NULL;
+    
+SELECT m.title, AVG(r.rating) as avg_rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id WHERE id=858 GROUP BY m.title;
+
+SELECT COUNT(rating), movie_id FROM ratings WHERE movie_id=858 GROUP BY movie_id;
+    
+SELECT COUNT(*) FROM movies WHERE genres LIKE "%Comedy%";
+
+SELECT AVG(rating) FROM ratings WHERE user_id = 1;
+
+SELECT user_id, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id ORDER BY total_ratings DESC;
+
+SELECT user_id, AVG(rating) as avg_rating FROM ratings GROUP BY user_id ORDER BY avg_rating DESC;
+
+    Find the user with the highest average rating with more than 50 reviews:
+    SELECT user_id, AVG(rating) as avg_rating, COUNT(*) as total_ratings FROM ratings GROUP BY user_id;
+    
+    Find the movies with an average rating over 4:
+    SELECT m.*, AVG(r.rating > 4) as avg_rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id;
