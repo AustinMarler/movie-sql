@@ -45,10 +45,34 @@ SELECT COUNT(*) FROM movies WHERE genres LIKE "%Comedy%";
 
 SELECT AVG(rating) FROM ratings WHERE user_id = 1;
 
-SELECT user_id, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id ORDER BY total_ratings DESC;
+SELECT user_id, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id ORDER BY total_ratings DESC LIMIT 1;
 
-SELECT user_id, AVG(rating) as avg_rating FROM ratings GROUP BY user_id ORDER BY avg_rating DESC;
+SELECT user_id, AVG(rating) as avg_rating FROM ratings GROUP BY user_id ORDER BY avg_rating DESC LIMIT 1;
 
 SELECT user_id, AVG(rating) as avg_rating, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id HAVING total_ratings > 50 ORDER BY avg_rating DESC LIMIT 1;
     
 SELECT m.title, AVG(r.rating) as avg_rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id GROUP BY m.title HAVING avg_rating > 4 ORDER BY avg_rating DESC;
+
+
+-- Hard Mode --
+
+
+-- Use concat and research about internet movie database to produce a valid url from the imdbid --
+SELECT movie_Id, CONCAT("http://www.imdb.com/title/tt", imdb_Id, "/?ref_=nv_sr_1?ref_=nv_sr_1") AS imdbLink FROM links;
+
+-- Use concat and research about the movie database to produce a valid url from tmdbid --
+SELECT CONCAT("https://www.themoviedb.org/movie/", tmdb_Id, "-")
+
+-- Get the ratings for The Unusuals and convert the timestamp into a human readable date time --
+
+
+-- Using SQL normalize the tags in the tags table. Make them lowercased and replace the spaces with - --
+
+
+-- Create a new field on the movies table for the year. Using an update query and a substring method update that column for every movie with the year found in the title column. --
+
+
+-- Once you have completed the new year column go through the title column and strip out the year. --
+
+
+-- Create a new column in the movies table and store the average review for each and every movie. --
