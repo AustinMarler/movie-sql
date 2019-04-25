@@ -61,7 +61,7 @@ SELECT m.title, AVG(r.rating) as avg_rating FROM movies m LEFT JOIN ratings r ON
 SELECT movie_Id, CONCAT("http://www.imdb.com/title/tt", imdb_Id, "/?ref_=nv_sr_1?ref_=nv_sr_1") AS imdbLink FROM links;
 
 -- Use concat and research about the movie database to produce a valid url from tmdbid --
-SELECT CONCAT("https://www.themoviedb.org/movie/", tmdb_Id, "-")
+SELECT movie_Id, CONCAT("https://www.themoviedb.org/movie/", tmdb_Id) AS tmdbLink FROM links;
 
 -- Get the ratings for The Unusuals and convert the timestamp into a human readable date time --
 
