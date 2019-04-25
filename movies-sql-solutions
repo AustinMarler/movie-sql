@@ -49,8 +49,6 @@ SELECT user_id, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id ORD
 
 SELECT user_id, AVG(rating) as avg_rating FROM ratings GROUP BY user_id ORDER BY avg_rating DESC;
 
-    Find the user with the highest average rating with more than 50 reviews:
-    SELECT user_id, AVG(rating) as avg_rating, COUNT(*) as total_ratings FROM ratings GROUP BY user_id;
+SELECT user_id, AVG(rating) as avg_rating, COUNT(rating) as total_ratings FROM ratings GROUP BY user_id HAVING total_ratings > 50 ORDER BY avg_rating DESC LIMIT 1;
     
-    Find the movies with an average rating over 4:
-    SELECT m.*, AVG(r.rating > 4) as avg_rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id;
+SELECT m.title, AVG(r.rating) as avg_rating FROM movies m LEFT JOIN ratings r ON m.id = r.movie_id GROUP BY m.title HAVING avg_rating > 4 ORDER BY avg_rating DESC;
